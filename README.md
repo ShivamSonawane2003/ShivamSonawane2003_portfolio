@@ -52,9 +52,9 @@ npm run dev
 
 This guide will walk you through deploying your portfolio to GitHub Pages.
 
-### Method 1: Using GitHub Actions (Recommended)
+### Method 1: Using GitHub Actions + `gh-pages` branch (Recommended)
 
-This method automatically deploys your site whenever you push to the main branch.
+This method automatically builds your site whenever you push to the `main` branch and publishes the production files to the `gh-pages` branch.
 
 #### Step 1: Update Vite Configuration
 
@@ -78,71 +78,16 @@ Replace `your-repo-name` with your actual GitHub repository name.
     deploy.yml
 ```
 
-2. Create `deploy.yml` file with this content:
-
-```yaml
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches:
-      - main  # Change to 'master' if your default branch is master
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './dist'
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-```
+2. Use a workflow that builds on `main` and publishes the `dist` folder to the `gh-pages` branch.
 
 #### Step 3: Enable GitHub Pages
 
 1. Go to your repository on GitHub
 2. Click on **Settings** tab
 3. Scroll down to **Pages** section
-4. Under **Source**, select **GitHub Actions**
-5. Save the changes
+4. Under **Source**, select **Deploy from a branch**
+5. Choose the `gh-pages` branch and `/ (root)`
+6. Save the changes
 
 #### Step 4: Push Your Code
 

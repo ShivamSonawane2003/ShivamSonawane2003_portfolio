@@ -5,8 +5,10 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // IMPORTANT: base path for GitHub Pages
-  base: mode === "production" ? "/ShivamSonawane2003_portfolio/" : "/",
+  // IMPORTANT: base path for GitHub Pages.
+  // Allow the workflow to override it, but keep a safe repo-specific default
+  // so local production builds still work out of the box.
+  base: mode === "production" ? process.env.VITE_BASE_PATH || "/ShivamSonawane2003_portfolio/" : "/",
 
   server: {
     host: "::",
