@@ -34,22 +34,31 @@ const Navbar = () => {
   }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -80 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass-card py-3 rounded-none border-x-0 border-t-0' : 'py-5 bg-transparent'
-      }`}
+    <nav
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? 'py-3' : 'py-5'}`}
     >
+      {/* Solid backdrop as its own element, rendered only when scrolled and
+          with NO opacity transition — a half-finished transition would leave
+          page content showing through the bar. */}
+      {scrolled && (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 border-b border-border/60 shadow-lg"
+          style={{ backgroundColor: 'hsl(222 47% 5%)' }}
+        />
+      )}
+
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <motion.a href="#home" className="text-2xl font-bold gradient-text" whileHover={{ scale: 1.05 }}>
-          {profile.initials}
-          <span className="text-accent">.</span>
+        <motion.a
+          href="#home"
+          className="text-lg md:text-xl font-bold gradient-text whitespace-nowrap"
+          whileHover={{ scale: 1.04 }}
+        >
+          {profile.name}
         </motion.a>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-7">
+        <div className="hidden md:flex items-center gap-5 lg:gap-6">
           {navItems.map((item) => {
             const id = item.href.replace('#', '');
             const isActive = active === id;
@@ -99,7 +108,7 @@ const Navbar = () => {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden overflow-hidden glass-card mt-2 mx-4 rounded-xl"
+            className="md:hidden overflow-hidden bg-background/95 border border-border/60 mt-2 mx-4 rounded-xl"
           >
             <div className="py-4 px-6 flex flex-col gap-4">
               {navItems.map((item) => (
@@ -124,7 +133,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 };
 

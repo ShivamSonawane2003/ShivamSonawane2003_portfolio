@@ -32,7 +32,16 @@ const AnimatedCounter = ({ value, suffix = '', prefix = '', duration = 1800 }: A
       if (progress < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+
+    // Safety net: requestAnimationFrame is paused entirely in background or
+    // heavily throttled tabs, which would leave the counter stuck at 0.
+    // Timeouts still fire, so guarantee we land on the real number.
+    const fallback = window.setTimeout(() => setCount(value), duration + 400);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(fallback);
+    };
   }, [isInView, value, duration, reduceMotion]);
 
   return (

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
 import { SiKaggle } from './icons/BrandIcons';
-import { navItems, profile } from '@/data/portfolio';
+import { profile } from '@/data/portfolio';
 
 const socials = [
   { icon: Github, href: profile.socials.github, label: 'GitHub' },
@@ -27,14 +27,6 @@ const Footer = () => {
             </p>
           </div>
 
-          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm" aria-label="Footer">
-            {navItems.map((item) => (
-              <a key={item.name} href={item.href} className="text-foreground/70 hover:text-primary transition-colors">
-                {item.name}
-              </a>
-            ))}
-          </nav>
-
           <div className="flex gap-3">
             {socials.map((s) => (
               <motion.a
@@ -52,11 +44,16 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-foreground/60">
-          <span>© {year} {profile.name}. All rights reserved.</span>
-          <a href="#home" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">
-            Back to top <ArrowUp size={14} />
+        <div className="mt-8 pt-8 border-t border-border/50 flex flex-col items-center gap-4">
+          <a
+            href="#home"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/40 text-primary text-sm font-medium hover:bg-primary/10 hover:-translate-y-0.5 transition-all"
+          >
+            Back to top <ArrowUp size={15} />
           </a>
+          <span className="text-sm text-foreground/60">
+            © {year} {profile.name}. All rights reserved.
+          </span>
         </div>
       </div>
     </footer>

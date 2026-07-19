@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { BadgeCheck, ArrowRight } from 'lucide-react';
+import { BadgeCheck } from 'lucide-react';
 import SectionHeader from './common/SectionHeader';
 import Reveal from './common/Reveal';
-import { whyHireMe, profile } from '@/data/portfolio';
+import { whyHireMe } from '@/data/portfolio';
 
 const WhyHireMeSection = () => {
   return (
@@ -34,27 +34,6 @@ const WhyHireMeSection = () => {
           ))}
         </div>
 
-        {/* Closing CTA banner */}
-        <Reveal className="mt-14">
-          <div className="glass-card rounded-2xl p-8 md:p-10 text-center relative overflow-hidden gradient-border">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
-            <div className="relative z-10">
-              <h3 className="text-2xl md:text-3xl font-bold mb-3">
-                Ready to build <span className="gradient-text">production AI</span> together?
-              </h3>
-              <p className="text-muted-foreground max-w-xl mx-auto mb-6">
-                I&apos;m open to AI/ML Engineer, Generative AI, and Data Scientist roles. Let&apos;s talk about what
-                you&apos;re building.
-              </p>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all shimmer-btn"
-              >
-                Get in touch <ArrowRight size={18} />
-              </a>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

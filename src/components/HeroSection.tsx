@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { useReducedMotion } from 'framer-motion';
 import { ChevronDown, Github, Linkedin, Mail, FileText, ArrowRight, MapPin } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import MagneticButton from './common/MagneticButton';
@@ -65,15 +65,18 @@ const HeroSection = () => {
       {!reduceMotion && (
         <div className="absolute inset-0 z-[3] overflow-hidden pointer-events-none">
           {['{ }', '</>', 'AI', '🤖', 'ƒ(x)', '[]'].map((g, i) => (
-            <motion.span
+            <span
               key={g}
-              className="absolute font-mono text-primary/20 text-2xl md:text-3xl select-none"
-              style={{ left: `${8 + i * 15}%`, top: `${15 + ((i * 13) % 60)}%` }}
-              animate={{ y: [0, -18, 0], opacity: [0.15, 0.4, 0.15] }}
-              transition={{ duration: 5 + i, repeat: Infinity, delay: i * 0.6, ease: 'easeInOut' }}
+              className="absolute font-mono text-primary/20 text-2xl md:text-3xl select-none animate-float"
+              style={{
+                left: `${8 + i * 15}%`,
+                top: `${15 + ((i * 13) % 60)}%`,
+                animationDelay: `${i * 0.6}s`,
+                animationDuration: `${5 + i}s`,
+              }}
             >
               {g}
-            </motion.span>
+            </span>
           ))}
         </div>
       )}
@@ -81,12 +84,7 @@ const HeroSection = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-wrap items-center justify-center gap-3 mb-7"
-          >
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-7 reveal-fade">
             {profile.availability.open && (
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-sm">
                 <span className="relative flex h-2.5 w-2.5">
@@ -100,56 +98,46 @@ const HeroSection = () => {
               <MapPin className="w-3.5 h-3.5" />
               {profile.currentRole.title} @ {profile.currentRole.company}
             </span>
-          </motion.div>
+          </div>
 
           {/* Name */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-primary font-mono text-base md:text-lg mb-3"
+          <p
+            className="text-primary font-mono text-base md:text-lg mb-3 reveal-fade"
+            style={{ animationDelay: '0.05s' }}
           >
             {'> Hi, I am'}
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold mb-4 tracking-tight"
+          </p>
+          <h1
+            className="text-5xl md:text-7xl font-bold mb-4 tracking-tight reveal-fade"
+            style={{ animationDelay: '0.1s' }}
           >
             <span className="gradient-text glow-text">{profile.name}</span>
-          </motion.h1>
+          </h1>
 
           {/* Rotating role */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-2xl md:text-4xl font-semibold mb-6 h-12 flex items-center justify-center"
+          <div
+            className="text-2xl md:text-4xl font-semibold mb-6 h-12 flex items-center justify-center reveal-fade"
+            style={{ animationDelay: '0.2s' }}
           >
-            <span className="text-muted-foreground">I&apos;m an&nbsp;</span>
+            <span className="text-muted-foreground">I&apos;m&nbsp;</span>
             <span className="text-primary">{role}</span>
             <span className="ml-1 w-0.5 h-8 md:h-10 bg-primary animate-blink" aria-hidden="true" />
-          </motion.div>
+          </div>
 
           {/* Headline / intro */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+          <p
+            className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed reveal-fade"
+            style={{ animationDelay: '0.3s' }}
           >
             I build <span className="text-foreground font-medium">production-grade AI systems</span> — LLM
             applications, multi-agent platforms, and ML pipelines — from data and models to{' '}
             <span className="text-foreground font-medium">FastAPI services running in Docker</span>.
-          </motion.p>
+          </p>
 
           {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-wrap justify-center gap-4 mb-14"
+          <div
+            className="flex flex-wrap justify-center gap-4 mb-14 reveal-fade"
+            style={{ animationDelay: '0.4s' }}
           >
             <MagneticButton
               href={asset(profile.resumeFile)}
@@ -175,14 +163,12 @@ const HeroSection = () => {
             >
               Contact <ArrowRight size={18} />
             </MagneticButton>
-          </motion.div>
+          </div>
 
           {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12"
+          <div
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12 reveal-fade"
+            style={{ animationDelay: '0.5s' }}
           >
             {heroStats.map((stat) => (
               <div key={stat.label} className="glass-card rounded-2xl px-4 py-5 gradient-border">
@@ -195,50 +181,38 @@ const HeroSection = () => {
                 <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
               </div>
             ))}
-          </motion.div>
+          </div>
 
           {/* Socials */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex justify-center gap-5"
-          >
-            {socialLinks.map((s, i) => (
-              <motion.a
+          <div className="flex justify-center gap-5 reveal-fade" style={{ animationDelay: '0.6s' }}>
+            {socialLinks.map((s) => (
+              <a
                 key={s.label}
                 href={s.href}
                 target={s.href.startsWith('http') ? '_blank' : undefined}
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.15, y: -4 }}
-                whileTap={{ scale: 0.92 }}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 + i * 0.08 }}
-                className="w-11 h-11 rounded-full glass-card flex items-center justify-center text-muted-foreground hover:text-primary hover:glow-border transition-all"
+                className="w-11 h-11 rounded-full glass-card flex items-center justify-center text-muted-foreground hover:text-primary hover:glow-border hover:-translate-y-1 transition-all"
                 aria-label={s.label}
               >
                 <s.icon size={20} />
-              </motion.a>
+              </a>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Scroll cue */}
-      <motion.a
+      <a
         href="#about"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-muted-foreground hover:text-primary transition-colors reveal-fade"
+        style={{ animationDelay: '0.8s' }}
         aria-label="Scroll to about section"
       >
         <span className="text-xs mb-2 tracking-widest uppercase">Scroll</span>
-        <motion.span animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
+        <span className="animate-float">
           <ChevronDown size={22} />
-        </motion.span>
-      </motion.a>
+        </span>
+      </a>
     </section>
   );
 };

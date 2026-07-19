@@ -17,9 +17,9 @@ const Index = () => {
       {/* Full-page neural network background (crisp vector canvas) */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(222_47%_4%)] via-background to-[hsl(222_47%_6%)]" />
-        <NeuralNetworkBackground opacity={0.6} density={1.15} />
-        {/* readability veil so content stays legible over the network */}
-        <div className="absolute inset-0 bg-background/45 pointer-events-none" />
+        <NeuralNetworkBackground opacity={0.95} density={1.15} />
+        {/* light veil — enough for legibility without washing the network out */}
+        <div className="absolute inset-0 bg-background/20 pointer-events-none" />
       </div>
 
       <ScrollProgress />

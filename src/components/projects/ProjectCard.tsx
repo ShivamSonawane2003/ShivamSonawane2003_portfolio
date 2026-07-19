@@ -37,28 +37,26 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
           transition={{ type: 'spring', stiffness: 300, damping: 22 }}
           className="glass-card rounded-3xl overflow-hidden group flex flex-col h-full gradient-border hover:glow-border transition-shadow"
         >
+          {/* Thin accent rule */}
+          <div className={`h-[3px] w-full bg-gradient-to-r ${project.accent}`} />
+
           {/* Banner */}
-          <div className={`relative h-44 bg-gradient-to-br ${project.accent} overflow-hidden`}>
-            <div className="absolute inset-0 bg-background/30" />
+          <div className="relative h-40 overflow-hidden bg-gradient-to-b from-muted/25 to-transparent">
+            {/* accent glow */}
             <div
-              className="absolute inset-0 opacity-25"
-              style={{
-                backgroundImage: 'radial-gradient(circle at 1.5px 1.5px, white 1px, transparent 0)',
-                backgroundSize: '20px 20px',
-              }}
+              className={`absolute -top-20 left-1/2 -translate-x-1/2 w-[22rem] h-44 rounded-full blur-3xl bg-gradient-to-r ${project.accent} opacity-25 group-hover:opacity-45 transition-opacity duration-500`}
             />
-            {/* index watermark */}
-            <span className="absolute -bottom-5 right-3 text-[7rem] leading-none font-black text-white/10 select-none">
+            <div className="absolute inset-0 bg-grid opacity-20" />
+            {/* index numeral */}
+            <span className="absolute right-4 -bottom-6 text-[6.5rem] leading-none font-black text-foreground/[0.06] select-none">
               {num}
             </span>
-            {/* sheen sweep on hover */}
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
-            <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
+            <div className="absolute top-4 left-5 flex flex-wrap gap-1.5">
               {project.badges.map((b) => (
                 <span
                   key={b}
-                  className="px-2.5 py-1 text-[10px] font-semibold rounded-full bg-black/40 text-white border border-white/20"
+                  className="px-2.5 py-1 text-[10px] font-semibold rounded-full bg-background/70 text-foreground/85 border border-border/70"
                 >
                   {b}
                 </span>
@@ -72,7 +70,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   aria-label={`${project.title} on GitHub`}
-                  className="w-9 h-9 rounded-full bg-black/40 flex items-center justify-center text-white hover:bg-black/60 transition-colors"
+                  className="w-9 h-9 rounded-full bg-background/70 border border-border/70 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
                 >
                   <Github size={16} />
                 </a>
@@ -84,20 +82,19 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   aria-label={`${project.title} live demo`}
-                  className="w-9 h-9 rounded-full bg-black/40 flex items-center justify-center text-white hover:bg-black/60 transition-colors"
+                  className="w-9 h-9 rounded-full bg-background/70 border border-border/70 flex items-center justify-center text-muted-foreground hover:text-accent hover:border-accent/50 transition-colors"
                 >
                   <ExternalLink size={16} />
                 </a>
               )}
             </div>
-            <motion.div
-              className="absolute left-5 bottom-4"
-              whileHover={{ scale: 1.1 }}
-            >
-              <div className="w-14 h-14 rounded-2xl bg-black/30 border border-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <project.icon className="w-7 h-7 text-white drop-shadow" />
+
+            {/* icon tile */}
+            <div className="absolute left-5 bottom-4">
+              <div className="w-14 h-14 rounded-2xl bg-background/80 border border-border/80 flex items-center justify-center group-hover:border-primary/50 group-hover:scale-105 transition-all duration-300">
+                <project.icon className="w-7 h-7 text-primary" />
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Body */}

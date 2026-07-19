@@ -28,8 +28,8 @@ const SectionHeader = ({
   return (
     <div ref={ref} className={`flex flex-col ${alignment} mb-14`}>
       <motion.div
-        initial={reduceMotion ? false : { scale: 0.6, opacity: 0 }}
-        animate={inView ? { scale: 1, opacity: 1 } : undefined}
+        initial={{ scale: reduceMotion ? 1 : 0.6, opacity: 0 }}
+        animate={inView ? { scale: 1, opacity: 1 } : { opacity: 0 }}
         transition={{ type: 'spring', stiffness: 200, damping: 15 }}
         className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/30"
       >
@@ -42,11 +42,10 @@ const SectionHeader = ({
       </h2>
 
       <motion.div
-        initial={reduceMotion ? false : { width: 0 }}
-        animate={inView ? { width: 88 } : undefined}
+        initial={{ width: 0, opacity: 0 }}
+        animate={inView ? { width: 88, opacity: 1 } : { width: 0, opacity: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
         className="h-1 mt-5 rounded-full bg-gradient-to-r from-primary to-accent"
-        style={{ width: reduceMotion ? 88 : undefined }}
       />
 
       {subtitle && (
